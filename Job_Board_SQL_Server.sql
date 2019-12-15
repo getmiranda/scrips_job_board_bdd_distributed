@@ -1,6 +1,8 @@
 --Se debe crear la base de datos primero y despues ejecutar los create.
 CREATE DATABASE job_board;
+GO
 USE job_board;
+GO
 
 /* Company Profiles Section */
 CREATE TABLE job_board.dbo.business_stream (
@@ -62,13 +64,11 @@ CREATE TABLE job_board.dbo.user_account (
 
 CREATE TABLE job_board.dbo.user_log (
     user_account_id INT NOT NULL,
-    last_login_date INT,
+    last_login_date DATE,
     last_job_apply_date DATE,
     CONSTRAINT PK_user_log PRIMARY KEY CLUSTERED (user_account_id),
     CONSTRAINT FK_UserAccount_UserLog FOREIGN KEY (user_account_id) 
     	REFERENCES job_board.dbo.user_account (id)
-    	ON DELETE CASCADE
-      	ON UPDATE CASCADE
 );
 
 /* Seeker Profile Builder Section */
@@ -204,7 +204,7 @@ CREATE TABLE job_board.dbo.job_post_skill_set (
 
 CREATE TABLE job_board.dbo.job_post_activity (
     user_account_id INT NOT NULL,
-    job_post_id INT NOT NULL,
+    job_post_id INT,
     apply_date DATE NOT NULL,
     CONSTRAINT PK_job_post_activity PRIMARY KEY CLUSTERED (user_account_id, job_post_id),
     CONSTRAINT FK_UserAccount_JobPostActivity FOREIGN KEY (user_account_id) 
